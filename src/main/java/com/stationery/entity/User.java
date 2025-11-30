@@ -1,0 +1,39 @@
+package com.stationery.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.util.List;
+
+@Entity
+@Table(name = "users")
+@Data // Lombok for Getters, Setters, toString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String email; // Acts as the username
+
+    @Column(nullable = false)
+    private String password; // BCrypt encoded
+
+    @Column(nullable = false)
+    private String fullName;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+    @Column(name = "max_purchase_limit")
+    private Double maxPurchaseLimit;
+
+    // Relationship: One User can make many Requests
+    // jsonIgnore prevents infinite recursion when fetching a User
+    @OneToMany(mappedBy = "requester", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Request> requests;
+}
