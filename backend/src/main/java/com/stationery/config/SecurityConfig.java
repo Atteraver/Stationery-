@@ -41,19 +41,18 @@ public class SecurityConfig {
                 // Module 1: Public endpoints
                 .requestMatchers("/api/auth/**").permitAll()
                 // Module 2: Item availability is public (or EMPLOYEE/MANAGER)
-                .requestMatchers(HttpMethod.GET, "/api/items").permitAll() 
-                
+                .requestMatchers(HttpMethod.GET, "/api/items").permitAll()
+
                 // Manager-specific endpoints (Modules 4, 7)
                 .requestMatchers("/api/manager/**").hasAuthority("MANAGER")
-                
+
                 // User-specific endpoints (Modules 2, 3)
                 // General Requests and Eligibility
                 .requestMatchers("/api/users/**", "/api/requests/**").hasAnyAuthority("EMPLOYEE", "MANAGER")
-                
                 .anyRequest().authenticated()
-            )
-            // Use basic HTTP authentication (or integrate JWT here later)
-            .httpBasic(basic -> {}); 
+            );
+//            // Use basic HTTP authentication (or integrate JWT here later)
+//            .httpBasic(basic -> {});
 
         return http.build();
     }

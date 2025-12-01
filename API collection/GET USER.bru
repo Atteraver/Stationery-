@@ -1,0 +1,27 @@
+meta {
+  name: GET USER
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/api/auth/register
+  body: json
+  auth: basic
+}
+
+body:json {
+  {
+      
+      "email": "jane.doe@college.edu",
+      "fullName": "Jane Doe",
+      "role": 1,
+      "maxPurchaseLimit": 900.00,
+      "password": "123"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

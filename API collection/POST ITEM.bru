@@ -1,0 +1,16 @@
+meta {
+  name: POST ITEM 
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/items
+  body: json
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

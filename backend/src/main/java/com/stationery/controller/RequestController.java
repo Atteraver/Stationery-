@@ -42,7 +42,6 @@ public class RequestController {
     }
     
     // GET /api/requests/my (Module 5: View My Requests)
-    // NOTE: User ID should come from the authenticated token, not the path
     @GetMapping("/requests/my/{userId}")
     public ResponseEntity<List<Request>> getMyRequests(@PathVariable Long userId) {
         List<Request> requests = requestService.findRequestsByRequester(userId);
