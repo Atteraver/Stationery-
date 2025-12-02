@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -34,12 +35,13 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
         http
+            .cors(cors -> cors.configurationSource(corsConfigurationSource)) // Enable CORS
             .csrf(csrf -> csrf.disable()) // Disable CSRF for REST APIs
             .authorizeHttpRequests(auth -> auth
                 // Module 1: Public endpoints
-                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
                 // Module 2: Item availability is public (or EMPLOYEE/MANAGER)
                 .requestMatchers(HttpMethod.GET, "/api/items").permitAll()
 
@@ -50,9 +52,9 @@ public class SecurityConfig {
                 // General Requests and Eligibility
                 .requestMatchers("/api/users/**", "/api/requests/**").hasAnyAuthority("EMPLOYEE", "MANAGER")
                 .anyRequest().authenticated()
-            );
-//            // Use basic HTTP authentication (or integrate JWT here later)
-//            .httpBasic(basic -> {});
+            )
+            // Enable HTTP Basic authentication for testing
+            .httpBasic(basic -> {});
 
         return http.build();
     }

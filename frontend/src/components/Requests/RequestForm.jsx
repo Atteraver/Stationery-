@@ -5,8 +5,8 @@ import { getUserId, getUserEmail } from "../../utils/auth";
 export default function RequestForm() {
   const [items, setItems] = useState([]);
   const [selected, setSelected] = useState({});
+  const [superiorEmail, setSuperiorEmail] = useState("");
   const userId = getUserId();
-  const managerEmailDefault = getUserEmail() || "";
 
   useEffect(() => {
     API.get("/api/items")
@@ -32,9 +32,14 @@ export default function RequestForm() {
       return;
     }
 
+    if (!superiorEmail || !superiorEmail.includes("@")) {
+      alert("Please enter a valid manager/superior email address.");
+      return;
+    }
+
     const payload = {
       userId: userId,
-      superiorEmail: managerEmailDefault || prompt("Enter your manager's email:"),
+      superiorEmail: superiorEmail,
       items: itemsReq
     };
 
@@ -42,6 +47,7 @@ export default function RequestForm() {
       await API.post("/api/requests", payload);
       alert("Request created successfully!");
       setSelected({});
+      setSuperiorEmail("");
       // optionally you can emit an event or reload lists by using a shared state
     } catch (err) {
       console.error(err);
@@ -51,7 +57,25 @@ export default function RequestForm() {
 
   return (
     <form className="form" onSubmit={handleSubmit}>
-      <div style={{ maxHeight: 280, overflow: "auto" }}>
+      <h3>Create New Request</h3>
+
+      <label className="small">Manager/Superior Email *</label>
+      <input
+        type="email"
+        placeholder="e.g., alice.manager@college.edu"
+        value={superiorEmail}
+        onChange={(e) => setSuperiorEmail(e.target.value)}
+        required
+        style={{ marginBottom: 16 }}
+      />
+
+      <label className="small">Select Items and Quantities</label>
+      <div style={{ maxHeight: 280, overflow: "auto", border: "1px solid #e9ecef", borderRadius: 4 }}>
+        {items.length === 0 && (
+          <div style={{ padding: 20, textAlign: "center", color: "#868e96" }}>
+            Loading items...
+          </div>
+        )}
         {items.map(it => (
           <div key={it.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: 8, borderBottom: "1px solid #f1f3f5" }}>
             <div>
@@ -73,7 +97,7 @@ export default function RequestForm() {
         ))}
       </div>
 
-      <div style={{ marginTop: 10 }}>
+      <div style={{ marginTop: 16 }}>
         <button type="submit">Submit Request</button>
       </div>
     </form>

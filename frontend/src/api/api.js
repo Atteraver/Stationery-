@@ -7,12 +7,18 @@ const API = axios.create({
   }
 });
 
-// Attach Authorization header automatically
+// Attach Authorization header automatically for authenticated requests
 API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers["Authorization"] = token;
+  // Try to get stored credentials
+  const email = localStorage.getItem("userEmail");
+  const password = localStorage.getItem("userPassword");
+
+  if (email && password) {
+    // Create Basic Auth header
+    const basicAuth = btoa(`${email}:${password}`);
+    config.headers["Authorization"] = `Basic ${basicAuth}`;
   }
+
   return config;
 });
 
