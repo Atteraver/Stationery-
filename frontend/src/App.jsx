@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Login from "./components/Auth/Login";
+import Register from "./components/Auth/Register";
+import Dashboard from "./components/Dashboard/Dashboard";
+import PrivateRoute from "./components/Common/PrivateRoute";
+import { getAuth, logout, getUserRole } from "./utils/auth";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const auth = getAuth();
+  const role = getUserRole();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="topbar">
+        <div className="brand">Stationery Management</div>
+        <nav>
+          {!auth ? (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/dashboard">Dashboard</Link>
+              <button
+                className="linklike"
+                onClick={() => {
+                  logout();
+                  window.location.href = "/login";
+                }}
+              >
+                Logout
+              </button>
+              <span className="role-tag">{role}</span>
+            </>
+          )}
+        </nav>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          Neel is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      <main className="container">
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+          <Route
+            path="/dashboard/*"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+
+          {/* default route */}
+          <Route path="/" element={<Login />} />
+        </Routes>
+      </main>
+    </Router>
+  );
 }
 
-export default App
+export default App;
