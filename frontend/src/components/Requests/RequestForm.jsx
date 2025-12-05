@@ -48,7 +48,6 @@ export default function RequestForm() {
       alert("Request created successfully!");
       setSelected({});
       setSuperiorEmail("");
-      // optionally you can emit an event or reload lists by using a shared state
     } catch (err) {
       console.error(err);
       alert("Failed to create request. Check console for details.");

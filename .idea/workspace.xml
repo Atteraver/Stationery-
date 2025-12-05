@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="be8d2d8a-4388-4d00-b691-c3c6112e02ab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API collection/GET ITEM.bru" beforeDir="false" afterPath="$PROJECT_DIR$/API collection/GET ITEM.bru" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/stationery/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/stationery/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/stationery/repository/RequestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/stationery/repository/RequestRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/stationery/service/RequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/stationery/service/RequestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Requests/MyRequests.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Requests/MyRequests.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/utils/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Dashboard/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Dashboard/Dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Manager/ManagerDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Manager/ManagerDashboard.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
