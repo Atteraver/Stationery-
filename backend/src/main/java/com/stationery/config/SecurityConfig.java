@@ -50,7 +50,8 @@ public class SecurityConfig {
 
                 // User-specific endpoints (Modules 2, 3)
                 // General Requests and Eligibility
-                .requestMatchers("/api/users/**", "/api/requests/**").hasAnyAuthority("EMPLOYEE", "MANAGER")
+                .requestMatchers("/api/users/**").hasAnyAuthority("EMPLOYEE", "MANAGER")
+                .requestMatchers("/api/requests/**").permitAll()
                 .anyRequest().authenticated()
             )
             // Enable HTTP Basic authentication for testing

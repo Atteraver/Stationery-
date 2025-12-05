@@ -111,9 +111,6 @@ public class RequestService {
         requestRepository.save(request);
     }
 
-    // --- Module 4: Manager Actions ---
-
-    // Req 9: Manager Approve/Reject
     public Request processRequest(Long requestId, String action) {
         Request request = requestRepository.findById(requestId)
             .orElseThrow(() -> new RuntimeException("Request not found."));

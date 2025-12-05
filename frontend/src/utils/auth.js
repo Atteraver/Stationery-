@@ -1,4 +1,3 @@
-// simple auth helpers for storing token + user info in localStorage
 
 export function saveAuth({ token, userId, role, email }) {
   if (token) localStorage.setItem("token", token);
@@ -21,12 +20,17 @@ export function getUserRole() {
 }
 
 export function getUserEmail() {
-  return localStorage.getItem("email");
+  return localStorage.getItem("userEmail");
+}
+
+export function getUserPassword() {
+  return localStorage.getItem("userPassword");
 }
 
 export function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
   localStorage.removeItem("role");
-  localStorage.removeItem("email");
+  localStorage.removeItem("userEmail");
+  localStorage.removeItem("userPassword");
 }

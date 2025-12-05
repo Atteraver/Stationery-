@@ -10,7 +10,7 @@ import java.util.List;
 public interface RequestRepository extends JpaRepository<Request, Long> {
     
     // Req 5: See his/her current stationery applications
-    List<Request> findByRequesterId(Long requesterId);
+    List<Request> findByRequesterId(Long requester_id);
     
     // Req 8: Manager can view all stationery requests submitted to him/her
     List<Request> findBySuperiorEmail(String email);

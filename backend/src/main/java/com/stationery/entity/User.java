@@ -1,5 +1,6 @@
 package com.stationery.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -40,6 +41,7 @@ public class User implements UserDetails {
     // Relationship: One User can make many Requests
     // jsonIgnore prevents infinite recursion when fetching a User
     @OneToMany(mappedBy = "requester", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Request> requests;
 
     // UserDetails interface methods
